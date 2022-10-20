@@ -24,6 +24,8 @@ alias tk="tmux kill-session -t"
 alias tn="tmux new -s"
 alias ta="tmux attach-session -t"
 
+alias dot="nvim ~/dot/.config -c ':lcd ~/dot/.config'"
+
 alias kreact="pkill -2 'react(\/scripts)?(\/| )start'"
 
 p () {

@@ -5,12 +5,9 @@ cnoreabbrev Q q
 cnoreabbrev Q! q!
 cnoreabbrev Qall qall
 cnoreabbrev Qall! qall!
-cnoreabbrev WA wa
 cnoreabbrev Wa wa
-cnoreabbrev wA wa
-cnoreabbrev WQ wq
 cnoreabbrev Wq wq
-cnoreabbrev wQ wq
+cnoreabbrev Wqa wqa
 
 " navigate windows
 nnoremap <C-j> <C-w>j

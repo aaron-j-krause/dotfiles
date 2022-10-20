@@ -1,10 +1,5 @@
 vim.cmd [[packadd packer.nvim]]
--- PackerCompile whenever this file changes
-vim.cmd([[autocmd BufWritePost lua/local/plugins.lua source <afile> | PackerCompile]])
-
-require("packer").init {
-  log = {level = "debug"}
-}
+vim.cmd([[autocmd BufWritePost */plugins/*.lua luafile %]])
 
 return require("packer").startup(
   function(use)
@@ -13,8 +8,13 @@ return require("packer").startup(
     use {"neoclide/coc.nvim", branch = "release"}
     use "tpope/vim-fugitive"
     use "tpope/vim-commentary"
-    use "sainnhe/sonokai"
-    use "preservim/nerdtree"
+    use {
+      "preservim/nerdtree",
+      config = function()
+        vim.g.NERDTreeShowHidden = 1
+      end
+    }
+
     use {
       "phaazon/hop.nvim",
       config = function()
@@ -47,7 +47,16 @@ return require("packer").startup(
 
     -- Snippet Engine
     use "L3MON4D3/LuaSnip"
-
+    use {
+      "ellisonleao/gruvbox.nvim",
+      config = function()
+        vim.cmd [[
+          set termguicolors
+          let background="dark" 
+          colorscheme gruvbox
+        ]]
+      end
+    }
     use {
       "nvim-treesitter/nvim-treesitter",
       config = function()

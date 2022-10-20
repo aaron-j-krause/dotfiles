@@ -66,7 +66,7 @@ augroup FormatAutogroup
 augroup END
 :set mouse=a
 
-let g:mkdp_path_to_chrome = "/Applications/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome"
+let g:mkdp_path_to_chrome = "/Applications/Google\\ Chro?me.app/Contents/MacOS/Google\\ Chrome"
 let g:NERDTreeMinimalUI = 1
 
 " NERDTree
@@ -79,19 +79,14 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 " set foldexpr=nvim_treesitter#foldexpr()
 " set foldnestmax=1
 
-lua << EOF
--- colorscheme
-vim.o.termguicolors = true
-vim.g.neon_style = "dark"
-vim.g.neon_italic_keyword = true
-vim.g.neon_italic_function = true
-vim.g.sonokai_enable_italic = true
-EOF
-let g:sonokai_better_performance = 1
-
-colorscheme sonokai
-
-let g:sonokai_style = 'atlantis'
+" lua << EOF
+" vim.o.termguicolors = true
+" vim.g.neon_style = "dark"
+" vim.g.neon_italic_keyword = true
+" vim.g.neon_italic_function = true
+" vim.g.sonokai_enable_italic = true
+" EOF
+" let g:sonokai_better_performance = 1
 
 " ignore case when searching
 set ignorecase
