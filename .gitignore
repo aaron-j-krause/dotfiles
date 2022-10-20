@@ -1,2 +1,2 @@
-nvim/default
-nvim/plugin
+.config/nvim/default
+.config/nvim/plugin

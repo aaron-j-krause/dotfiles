@@ -1,4 +1,4 @@
-source "$DOT_PATH/aliases"
+source "$DOT_PATH/aliases.zsh"
 source "$DOT_PATH/p10k"
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
@@ -62,7 +62,7 @@ unsetopt nomatch
 
 # path (from thoughtbot) probably don't need this
 # ensure dotfiles bin directory is loaded first
-PATH="$HOME/.bin:/usr/local/sbin:$PATH"
+PATH="$HOME/.bin:/usr/local/sbin:$PATH:~/Users/krauseaa/.local/bin:~/mvn/bin"
 
 export FZF_DEFAULT_COMMAND='rg'
 
