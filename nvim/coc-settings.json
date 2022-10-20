@@ -1,0 +1,12 @@
+{
+  "Lua.diagnostics.globals":["vim"],
+  "yaml.completion": true,
+  "yaml.format": true,
+  "yaml.validate": true,
+  "yaml.schemaStoreEnabled": true,
+  "json.format.enable": true,
+  "yaml.schemas": {
+    "https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.0/schema.json": "openapi.yaml"
+  }
+
+}
