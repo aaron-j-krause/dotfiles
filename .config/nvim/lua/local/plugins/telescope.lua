@@ -1,4 +1,7 @@
+local Util = require "local.util"
 local telescope = require "telescope"
+
+local nmap = Util.genKeyMapper("n")
 
 telescope.setup {
   defaults = {
