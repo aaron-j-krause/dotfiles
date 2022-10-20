@@ -62,7 +62,7 @@ unsetopt nomatch
 
 # path (from thoughtbot) probably don't need this
 # ensure dotfiles bin directory is loaded first
-PATH="$HOME/.bin:/usr/local/sbin:$PATH:~/Users/krauseaa/.local/bin:~/mvn/bin"
+PATH="/Applications/Xcode.app/Contents/Developer/usr/bin:$HOME/.bin:/usr/local/sbin:$PATH:~/Users/krauseaa/.local/bin:~/mvn/bin"
 
 export FZF_DEFAULT_COMMAND='rg'
 
@@ -78,6 +78,11 @@ export FZF_DEFAULT_OPTS="--extended"
 
 autoload -Uz compinit
 compinit
+
+# faster git complete?
+__git_files () { 
+    _wanted files expl 'local files' _files     
+}
 
 # disable underline from zsh-syntax-highlighting
 (( ${+ZSH_HIGHLIGHT_STYLES} )) || typeset -A ZSH_HIGHLIGHT_STYLES

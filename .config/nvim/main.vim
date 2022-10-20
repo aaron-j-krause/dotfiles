@@ -3,19 +3,22 @@ scriptencoding utf-8
 let path = expand($DOT_PATH)
 
 " Editor
-let g:mapleader=','
+" let g:mapleader=','
 
 lua << EOF
-local execute = vim.api.nvim_command
-local fn = vim.fn
-
-local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
-
-if fn.empty(fn.glob(install_path)) > 0 then
-  fn.system({'git', 'clone', 'https://github.com/wbthomason/packer.nvim', install_path})
-  execute 'packadd packer.nvim'
-end
+-- local execute = vim.api.nvim_command
+-- local fn = vim.fn
+-- 
+-- local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+-- 
+-- if fn.empty(fn.glob(install_path)) > 0 then
+--   fn.system({'git', 'clone', 'https://github.com/wbthomason/packer.nvim', install_path})
+--   execute 'packadd packer.nvim'
+-- end
 EOF
+
+" use bash instead of zsh for vim stuff
+set shell=/bin/bash
 
 " use system clipboard
 set clipboard^=unnamed,unnamedplus
@@ -88,30 +91,30 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 " EOF
 " let g:sonokai_better_performance = 1
 
-" ignore case when searching
-set ignorecase
+" " ignore case when searching
+" set ignorecase
 
-" if the search string has an upper case letter in it, the search will be case sensitive
-set smartcase
+" " if the search string has an upper case letter in it, the search will be case sensitive
+" set smartcase
 
-" Automatically re-read file if a change was detected outside of vi m
-set autoread
+" " Automatically re-read file if a change was detected outside of vi m
+" set autoread
 
-" Enable line numbers
-set number
+" " Enable line numbers
+" set number
 
-" Set backups
-if has('persistent_undo')
-  set undofile
-  set undolevels=3000
-  set undoreload=10000
-endif
-set backupdir=~/.local/share/nvim/backup " Don't put backups in current dir
-set backup
-set noswapfile
+" " Set backups
+" if has('persistent_undo')
+"   set undofile
+"   set undolevels=3000
+"   set undoreload=10000
+" endif
+" set backupdir=~/.local/share/nvim/backup " Don't put backups in current dir
+" set backup
+" set noswapfile
 
 " autocomplete/cmp
-set completeopt=menu,menuone,noselect
+" set completeopt=menu,menuone,noselect
 
 autocmd BufRead,BufNewFile *.md set filetype=markdown
 autocmd BufRead,BufNewFile .{eslint,prettier}rc set filetype=json

@@ -14,3 +14,9 @@ telescope.setup {
     }
   }
 }
+
+vim.cmd [[
+nnoremap <silent> <leader>t :Telescope find_files<cr>
+nnoremap <silent> <leader>g :Telescope live_grep<cr>
+nnoremap <silent> ; :Telescope buffers<cr>
+]]

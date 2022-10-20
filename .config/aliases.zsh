@@ -17,7 +17,7 @@ alias nzf="fzf | xargs nvim"
 alias jp="prettier --stdin-filepath j.json"
 
 alias g="git"
-alias gs="git status"
+alias gs="g status"
 
 alias tx="tmuxinator start"
 alias tk="tmux kill-session -t"

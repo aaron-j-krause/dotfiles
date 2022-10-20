@@ -1,19 +1,18 @@
 vim.cmd [[packadd packer.nvim]]
-vim.cmd([[autocmd BufWritePost */plugins/*.lua luafile %]])
+-- vim.cmd([[autocmd BufWritePost */plugins/*.lua luafile %]])
+vim.cmd([[autocmd BufWritePost */plugins/*.lua source <afile> | PackerCompile]])
 
 return require("packer").startup(
   function(use)
     -- Packer can manage itself
     use "wbthomason/packer.nvim"
-    use {"neoclide/coc.nvim", branch = "release"}
+    use {
+      "neoclide/coc.nvim",
+      branch = "release"
+    }
     use "tpope/vim-fugitive"
     use "tpope/vim-commentary"
-    use {
-      "preservim/nerdtree",
-      config = function()
-        vim.g.NERDTreeShowHidden = 1
-      end
-    }
+    use "folke/lua-dev.nvim"
 
     use {
       "phaazon/hop.nvim",
@@ -46,7 +45,7 @@ return require("packer").startup(
     -- use "onsails/lspkind-nvim"
 
     -- Snippet Engine
-    use "L3MON4D3/LuaSnip"
+    -- use "L3MON4D3/LuaSnip"
     use {
       "ellisonleao/gruvbox.nvim",
       config = function()
@@ -94,6 +93,15 @@ return require("packer").startup(
       requires = {"kyazdani42/nvim-web-devicons", opt = true},
       config = function()
         require "local.plugins.statusline"
+      end
+    }
+    use {
+      "nvim-tree/nvim-tree.lua",
+      requires = {
+        "nvim-tree/nvim-web-devicons"
+      },
+      config = function()
+        require "local.plugins.nvim-tree"
       end
     }
   end

@@ -9,6 +9,7 @@
   ci = commit -v
   co = checkout
   pf = push --force-with-lease
+  stashgrep = "!f() { for i in `git stash list --format=\"%gd\"` ; do git stash show -p $i | grep -H --label=\"$i\" \"$@\" ; done ; }; f"
   st = status
 [core]
   excludesfile = ~/.gitignore
@@ -19,3 +20,5 @@
   autosquash = true
 [diff]
   colorMoved = zebra
+[blame]
+  date = relative

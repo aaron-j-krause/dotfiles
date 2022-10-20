@@ -4,6 +4,8 @@ let p = expand($DOT_PATH)
 
 lua << EOF
   require'local/plugins'
+  require'local.main'
+  require'main'
 EOF
 
 
