@@ -5,7 +5,7 @@ vim.g.mapleader = ","
 local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-  vim.fn.system({"git", "clone", "https://github.com/wbthomason/packer.nvim", install_path})
+  vim.fn.system({ "git", "clone", "https://github.com/wbthomason/packer.nvim", install_path })
   vim.api.nvim_command("packadd", "packer.nvim")
 end
 
@@ -60,8 +60,12 @@ vim.opt.backup = true
 vim.opt.swapfile = false
 
 -- autocomplete/cmp
-vim.opt.completeopt = "menu,menuone,noselect"
+-- vim.opt.completeopt = "menu,menuone,noselect"
 
 vim.opt.undofile = true
 vim.opt.undolevels = 3000
 vim.opt.undoreload = 10000
+
+vim.opt.termguicolors = true
+vim.cmd([[let &t_8f = "\e[38;2;%lu;%lu;%lum"]])
+vim.cmd([[let &t_8b = "\e[48;2;%lu;%lu;%lum"]])

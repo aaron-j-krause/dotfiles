@@ -2,7 +2,6 @@ local Util = require "local.util"
 local telescope = require "telescope"
 
 local nmap = Util.genKeyMapper("n")
-
 telescope.setup {
   defaults = {
     vimgrep_arguments = {
@@ -13,8 +12,10 @@ telescope.setup {
       "--line-number",
       "--column",
       "--smart-case",
-      "--trim" -- add this value
-    }
+      "--trim"
+    },
+    path_display = { "smart" }
+
   }
 }
 

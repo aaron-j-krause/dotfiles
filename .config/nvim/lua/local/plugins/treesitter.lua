@@ -8,7 +8,8 @@ require "nvim-treesitter.configs".setup {
     enable = true
   },
   indent = {
-    disable = {"yaml"}
+    enable = true,
+    disable = { "yaml" }
   },
   ensure_installed = {
     "css",
@@ -22,6 +23,7 @@ require "nvim-treesitter.configs".setup {
     "json",
     "yaml",
     "regex",
-    "vue"
+    "vue",
+    "markdown"
   }
 }

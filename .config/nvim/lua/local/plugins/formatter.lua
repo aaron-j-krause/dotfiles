@@ -2,7 +2,7 @@ local prettier = {
   function()
     return {
       exe = "prettier",
-      args = {"--stdin-filepath", vim.api.nvim_buf_get_name(0)},
+      args = { "--stdin-filepath", vim.api.nvim_buf_get_name(0) },
       stdin = true
     }
   end
@@ -12,7 +12,7 @@ local clang = {
   function()
     return {
       exe = "clang-format",
-      args = {"--assume-filename", vim.api.nvim_buf_get_name(0)},
+      args = { "--assume-filename", vim.api.nvim_buf_get_name(0) },
       stdin = true,
       cwd = vim.fn.expand("%:p:h") -- Run clang-format in cwd of the file.
     }
@@ -28,6 +28,7 @@ format.setup(
       javascript = prettier,
       typescript = prettier,
       ["typescript.tsx"] = prettier,
+      ["typescriptreact"] = prettier,
       ["javascript.jsx"] = prettier,
       json = prettier,
       yaml = prettier,
@@ -37,7 +38,7 @@ format.setup(
         function()
           return {
             exe = "luafmt",
-            args = {"--indent-count", 2, "--stdin"},
+            args = { "--indent-count", 2, "--stdin" },
             stdin = true
           }
         end

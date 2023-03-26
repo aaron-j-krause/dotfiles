@@ -1,51 +1,103 @@
+local ensure_packer = function()
+  local fn = vim.fn
+  local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
+  if fn.empty(fn.glob(install_path)) > 0 then
+    fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
+    vim.cmd [[packadd packer.nvim]]
+    return true
+  end
+  return false
+end
+
+local packer_bootstrap = ensure_packer()
+
+
 vim.cmd [[packadd packer.nvim]]
 -- vim.cmd([[autocmd BufWritePost */plugins/*.lua luafile %]])
-vim.cmd([[autocmd BufWritePost */plugins/*.lua source <afile> | PackerCompile]])
+-- vim.cmd([[autocmd BufWritePost */plugins/*.lua source <afile> | PackerCompile]])
 
 return require("packer").startup(
   function(use)
     -- Packer can manage itself
     use "wbthomason/packer.nvim"
-    use {
-      "neoclide/coc.nvim",
-      branch = "release"
-    }
     use "tpope/vim-fugitive"
     use "tpope/vim-commentary"
     use "folke/lua-dev.nvim"
+    use { 'mhartington/formatter.nvim',
+      config = function()
+        require "local.plugins.formatter"
+      end
+    }
 
+    use {
+      'lukas-reineke/headlines.nvim',
+      config = function()
+        require('headlines').setup()
+      end,
+    }
+
+    use { 'NvChad/nvim-colorizer.lua', config = function()
+      require "colorizer".setup()
+    end
+    }
     use {
       "phaazon/hop.nvim",
       config = function()
         require "hop".setup()
       end
     }
-
+    use {
+      'shumphrey/fugitive-gitlab.vim',
+      config = function()
+        vim.cmd [[
+          let g:fugitive_gitlab_domains = ['https://my.gitlab.com']
+        ]]
+      end
+    }
+    use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+    --
     -- expects a global install of an npm package
     -- the package is called lua-fmt, the executable is luafmt
     -- npm i -g luafmt
     -- TODO: post install verify and or install of npm package
-    use {
-      "mhartington/formatter.nvim",
+    use { "neovim/nvim-lspconfig",
+
       config = function()
-        require("local.plugins.formatter")
+        require("local.plugins.lsp")
       end
     }
-    -- use {"neovim/nvim-lspconfig"}
 
     use "tpope/vim-surround"
     use "lukas-reineke/indent-blankline.nvim"
 
     -- Autocomplete
-    -- use {"hrsh7th/nvim-cmp"}
-    -- use {"hrsh7th/cmp-nvim-lsp"}
-    -- use {"hrsh7th/cmp-buffer"}
+    use { "hrsh7th/nvim-cmp",
+      wants = { "LuaSnip" },
+      config = function()
+        require 'local.plugins.cmp'
+      end,
+      requires = {
+        "hrsh7th/cmp-buffer",
+        "hrsh7th/cmp-path",
+        "hrsh7th/cmp-nvim-lua",
+        "ray-x/cmp-treesitter",
+        "hrsh7th/cmp-cmdline",
+        "saadparwaiz1/cmp_luasnip",
+        "hrsh7th/cmp-nvim-lsp",
+        {
+          "L3MON4D3/LuaSnip",
+          wants = "friendly-snippets",
+          config = function()
+            require("luasnip.loaders.from_vscode").lazy_load()
+          end,
+        },
+        "rafamadriz/friendly-snippets",
+      }
+    }
 
     -- Icons for Autocomplete
-    -- use "onsails/lspkind-nvim"
-
-    -- Snippet Engine
-    -- use "L3MON4D3/LuaSnip"
+    use "onsails/lspkind-nvim"
+    use "L3MON4D3/LuaSnip"
     use {
       "ellisonleao/gruvbox.nvim",
       config = function()
@@ -56,6 +108,13 @@ return require("packer").startup(
         ]]
       end
     }
+    -- use {
+    --   'tanvirtin/monokai.nvim',
+    --     config = function()
+    --       require('monokai').setup { palette = require('monokai').pro }
+    --   end
+    -- }
+
     use {
       "nvim-treesitter/nvim-treesitter",
       config = function()
@@ -69,7 +128,7 @@ return require("packer").startup(
       config = function()
         require "local.plugins.telescope"
       end,
-      requires = {"nvim-lua/plenary.nvim"}
+      requires = { "nvim-lua/plenary.nvim" }
     }
 
     use {
@@ -86,11 +145,11 @@ return require("packer").startup(
       config = function()
         require "telescope".load_extension "frecency"
       end,
-      requires = {"tami5/sqlite.lua"}
+      requires = { "tami5/sqlite.lua" }
     }
     use {
       "nvim-lualine/lualine.nvim",
-      requires = {"kyazdani42/nvim-web-devicons", opt = true},
+      requires = { "kyazdani42/nvim-web-devicons", opt = true },
       config = function()
         require "local.plugins.statusline"
       end
@@ -104,5 +163,8 @@ return require("packer").startup(
         require "local.plugins.nvim-tree"
       end
     }
+    if packer_bootstrap then
+      require('packer').sync()
+    end
   end
 )
