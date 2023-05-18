@@ -96,7 +96,14 @@ return require("packer").startup(
     }
 
     -- Icons for Autocomplete
-    use "onsails/lspkind-nvim"
+    use { "onsails/lspkind-nvim",
+      config = function()
+        require "lspkind".init({
+          preset = 'codicons'
+        })
+    end
+
+    }
     use "L3MON4D3/LuaSnip"
     use {
       "ellisonleao/gruvbox.nvim",
@@ -146,6 +153,12 @@ return require("packer").startup(
         require "telescope".load_extension "frecency"
       end,
       requires = { "tami5/sqlite.lua" }
+    }
+    use {
+        "kyazdani42/nvim-web-devicons",
+        config= function ()
+          require "nvim-web-devicons".setup()
+        end
     }
     use {
       "nvim-lualine/lualine.nvim",

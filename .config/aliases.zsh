@@ -20,9 +20,13 @@ alias c="clear"
 alias jp="prettier --stdin-filepath j.json"
 alias md="mkdir"
 alias dot="nvim ~/dotfiles/.config -c ':lcd ~/dotfiles/.config'"
+alias ls="ls -A"
+
 alias g="git"
 alias gs="g status"
-alias ls="ls -A"
+alias gc="git commit -m"
+alias gd="git diff"
+
 #
 # TODO: doesn't work
 # alias nzf="fzf | xargs nvim"
@@ -34,8 +38,7 @@ alias tx="tmuxinator start"
 alias tk="tmux kill-session -t"
 alias tn="tmux new -s"
 alias ta="tmux attach-session -t"
-
-
+alias v="vim"
 alias kreact="pkill -2 'react(\/scripts)?(\/| )start'"
 
 p () {

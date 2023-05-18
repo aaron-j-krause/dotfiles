@@ -9,15 +9,16 @@
   ci = commit -v
   co = checkout
   pf = push --force-with-lease
+  p = push
   stashgrep = "!f() { for i in `git stash list --format=\"%gd\"` ; do git stash show -p $i | grep -H --label=\"$i\" \"$@\" ; done ; }; f"
   st = status
+  r = reset
+  d = diff
 [core]
   excludesfile = ~/.gitignore
   autocrlf = input
 [fetch]
   prune = true
-[rebase]
-  autosquash = true
 [diff]
   colorMoved = zebra
 [blame]

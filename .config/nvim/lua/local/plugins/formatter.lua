@@ -3,10 +3,14 @@ local prettier = {
     return {
       exe = "prettier",
       args = { "--stdin-filepath", vim.api.nvim_buf_get_name(0) },
-      stdin = true
+      stdin = true,
+
+      cwd = vim.fn.expand("%:p:h") -- Run clang-format in cwd of the file.
     }
   end
 }
+
+-- local prettier = { require 'formatter.filetypes.typescript' }
 
 local clang = {
   function()

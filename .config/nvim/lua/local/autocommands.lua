@@ -1,7 +1,7 @@
 vim.api.nvim_create_autocmd(
   "BufWritePost",
   {
-    pattern = "*.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.lua",
+    pattern = "*.js,*.jsx,*.mjs,*.css,*.less,*.scss,*.json,*.graphql,*.lua",
     callback = function()
       vim.cmd ":FormatWrite"
     end
