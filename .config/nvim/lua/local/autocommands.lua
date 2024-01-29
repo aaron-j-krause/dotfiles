@@ -1,3 +1,9 @@
+-- use :make to run tsc and put errors in quickfix list
+-- TODO: lua
+vim.cmd [[
+    autocmd FileType typescript,typescriptreact compiler tsc | setlocal makeprg=npx\ tsc
+]]
+
 vim.api.nvim_create_autocmd(
   "BufWritePost",
   {
@@ -20,17 +26,18 @@ vim.api.nvim_create_autocmd(
 )
 
 vim.api.nvim_create_autocmd(
-  {"BufRead,BufNewFile"},
+  {"BufRead", "BufNewFile"},
   {
     pattern = "*.md",
     callback = function()
       vim.api.nvim_buf_set_option(0, "filetype", "markdown")
+      vim.cmd('setlocal textwidth=80')
     end
   }
 )
 
 vim.api.nvim_create_autocmd(
-  {"BufRead,BufNewFile"},
+  {"BufRead", "BufNewFile"},
   {
     pattern = ".{eslint,prettier}rc",
     callback = function()
@@ -38,3 +45,4 @@ vim.api.nvim_create_autocmd(
     end
   }
 )
+

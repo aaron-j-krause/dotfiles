@@ -8,15 +8,18 @@ cmp.setup {
       require 'luasnip'.lsp_expand(args.body)
     end
   },
+
   sources = cmp.config.sources {
     { name = 'nvim_lsp' },
     { name = 'buffer' }
   },
+
   formatting = {
     format = lspkind.cmp_format({
       mode = 'symbol', maxwidth = 50, ellipsis_char = '...',
     })
   },
+
   mapping = {
     ["<Up>"] = cmp.mapping.select_prev_item(),
     ["<Down>"] = cmp.mapping.select_next_item(),
@@ -54,8 +57,40 @@ cmp.setup {
     else
       fallback()
     end
-  end
+  end,
+
+  sorting = {
+    comparators = {
+      cmp.config.compare.offset,
+      cmp.config.compare.exact,
+      cmp.config.compare.score,
+      cmp.config.compare.recently_used,
+      cmp.config.compare.locality,
+      cmp.config.compare.kind,
+      cmp.config.compare.sort_text,
+      cmp.config.compare.length,
+      cmp.config.compare.order,
+    }
+  }
 }
+
+cmp.setup.cmdline('/', {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = {
+    { name = 'buffer' }
+  }
+})
+
+
+-- `:` cmdline setup.
+cmp.setup.cmdline(':', {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = cmp.config.sources({
+    { name = 'path' }
+  }, {
+    { name = 'cmdline' }
+  })
+})
 
 -- dont remember what this is for
 vim.cmd [[

@@ -24,6 +24,16 @@ require "nvim-treesitter.configs".setup {
     "yaml",
     "regex",
     "vue",
-    "markdown"
+    "markdown",
+    "vimdoc"
+  },
+  textobjects = {
+    select = {
+      enable = true,
+      keymaps = {
+        ["af"] = "@function.outer",
+        ["if"] = "@function.inner",
+      }
+    }
   }
 }

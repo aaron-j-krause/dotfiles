@@ -1,7 +1,7 @@
 local status, nvim_lsp = pcall(require, "lspconfig")
 require('vim.lsp.protocol').CompletionItemKind = {
       '  Text';          -- = 1
-      '  Function';      -- = 2;
+      '󰊕 Function';      -- = 2;
       '  Method';        -- = 3;
       '  Constructor';   -- = 4;
       '  Field';         -- = 5;
@@ -20,29 +20,34 @@ require('vim.lsp.protocol').CompletionItemKind = {
       '  Reference';     -- = 18;
       '  Folder';        -- = 19;
       '  EnumMember';    -- = 20;
+  -- TODO: this show for an import so it would be nice if that were clearer but it says Constants
+  -- idk what that even means
       '  Constant';      -- = 21;
       '  Struct';        -- = 22;
       '  Event';         -- = 23;
       '  Operator';      -- = 24;
       '  TypeParameter'; -- = 25;
 }
-local protocol = require 'vim.lsp.protocol'
-local on_attach = function(client, bufnr)
+
+local on_attach = function(_, bufnr)
   local bufopts = { noremap = true, silent = true, buffer = bufnr }
   vim.api.nvim_buf_set_option(bufnr, "omnifunc", 'v:lua.vim.lsp.omnifunc')
-  vim.api.nvim_create_autocmd("BufWritePre", {
-    group = vim.api.nvim_create_augroup("Format", { clear = true }),
-    buffer = bufnr,
-    callback = function() vim.lsp.buf.formatting_seq_sync() end
-  })
+  -- vim.api.nvim_create_autocmd("BufWritePre", {
+  --   group = vim.api.nvim_create_augroup("Format", { clear = true }),
+  --   buffer = bufnr,
+  --   callback = function() vim.lsp.buf.formatting_seq_sync() end
+  -- })
   vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
   vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
   vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
   vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
   vim.keymap.set('n', '<leader>.', function() vim.lsp.buf.format { async = true } end, bufopts)
   vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, bufopts)
   vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
   vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
+  vim.keymap.set('n', '<leader>dn', vim.diagnostic.goto_next, bufopts)
+  vim.keymap.set('n', '<leader>dp', vim.diagnostic.goto_prev, bufopts)
 end
 
 local flags = {
@@ -78,6 +83,7 @@ require 'lspconfig'.lua_ls.setup {
       workspace = {
         -- Make the server aware of Neovim runtime files
         library = vim.api.nvim_get_runtime_file("", true),
+        checkThirdParty = false
       },
       -- Do not send telemetry data containing a randomized but unique identifier
       telemetry = {
@@ -109,13 +115,21 @@ vim.o.updatetime = 250
 vim.cmd [[autocmd! CursorHold * lua vim.diagnostic.open_float(nil, { focus = false }) ]]
 
 nvim_lsp.tsserver.setup {
-  capabilities = capabilities,
-  on_attach = on_attach,
+  capabilities = capabilities, on_attach = on_attach,
   flags = flags,
   filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
   cmd = { "typescript-language-server", "--stdio" }
 }
 
+nvim_lsp.jsonls.setup {
+  capabilities = capabilities,
+  settings = {
+    json = {
+      schemas = require 'schemastore'.json.schemas(),
+      validate = { enable = true },
+    },
+  },
+}
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 nvim_lsp.cssls.setup {

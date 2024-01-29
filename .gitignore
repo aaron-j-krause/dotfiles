@@ -5,10 +5,10 @@ node_modules
 
 # I guess this is why you don't just story the config directory... other things use it
 # Prob needs a script change to that dot thing or whatever
+.config/.jira
 .config/coc/
 .config/configstore/
 .config/glab-cli/
 .config/glabget.js
 .config/htop/
-.config/kitty/
 .config/yarn/

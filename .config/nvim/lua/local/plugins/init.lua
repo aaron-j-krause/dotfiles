@@ -11,23 +11,24 @@ end
 
 local packer_bootstrap = ensure_packer()
 
-
 vim.cmd [[packadd packer.nvim]]
 -- vim.cmd([[autocmd BufWritePost */plugins/*.lua luafile %]])
 -- vim.cmd([[autocmd BufWritePost */plugins/*.lua source <afile> | PackerCompile]])
 
-return require("packer").startup(
+return require('packer').startup(
   function(use)
     -- Packer can manage itself
-    use "wbthomason/packer.nvim"
-    use "tpope/vim-fugitive"
-    use "tpope/vim-commentary"
-    use "folke/lua-dev.nvim"
+    use 'wbthomason/packer.nvim'
+    use 'tpope/vim-fugitive'
+    use 'tpope/vim-commentary'
+    use 'folke/lua-dev.nvim'
     use { 'mhartington/formatter.nvim',
       config = function()
-        require "local.plugins.formatter"
+        require 'local.plugins.formatter'
       end
     }
+
+    use 'tpope/vim-characterize'
 
     use {
       'lukas-reineke/headlines.nvim',
@@ -36,14 +37,23 @@ return require("packer").startup(
       end,
     }
 
+    use({
+        "iamcco/markdown-preview.nvim",
+        run = function() vim.fn["mkdp#util#install"]() end,
+    })
+
+    -- use { 'sourcegraph/sg.nvim', run = 'nvim -l build/init.lua', config = function ()
+    --  require 'sg'.setup()
+    -- end }
+
     use { 'NvChad/nvim-colorizer.lua', config = function()
-      require "colorizer".setup()
+      require 'colorizer'.setup()
     end
     }
     use {
-      "phaazon/hop.nvim",
+      'phaazon/hop.nvim',
       config = function()
-        require "hop".setup()
+        require 'hop'.setup()
       end
     }
     use {
@@ -54,63 +64,65 @@ return require("packer").startup(
         ]]
       end
     }
+    use { 'tpope/vim-abolish' }
     use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
     --
     -- expects a global install of an npm package
     -- the package is called lua-fmt, the executable is luafmt
     -- npm i -g luafmt
     -- TODO: post install verify and or install of npm package
-    use { "neovim/nvim-lspconfig",
+    use { 'neovim/nvim-lspconfig',
 
       config = function()
-        require("local.plugins.lsp")
+        require('local.plugins.lsp')
       end
     }
 
-    use "tpope/vim-surround"
-    use "lukas-reineke/indent-blankline.nvim"
+
+    use 'b0o/schemastore.nvim'
+    use 'tpope/vim-surround'
+    use 'lukas-reineke/indent-blankline.nvim'
 
     -- Autocomplete
-    use { "hrsh7th/nvim-cmp",
-      wants = { "LuaSnip" },
+    use { 'hrsh7th/nvim-cmp',
+      wants = { 'LuaSnip' },
       config = function()
         require 'local.plugins.cmp'
       end,
       requires = {
-        "hrsh7th/cmp-buffer",
-        "hrsh7th/cmp-path",
-        "hrsh7th/cmp-nvim-lua",
-        "ray-x/cmp-treesitter",
-        "hrsh7th/cmp-cmdline",
-        "saadparwaiz1/cmp_luasnip",
-        "hrsh7th/cmp-nvim-lsp",
+        'hrsh7th/cmp-buffer',
+        'hrsh7th/cmp-path',
+        'hrsh7th/cmp-nvim-lua',
+        'ray-x/cmp-treesitter',
+        'hrsh7th/cmp-cmdline',
+        'saadparwaiz1/cmp_luasnip',
+        'hrsh7th/cmp-nvim-lsp',
         {
-          "L3MON4D3/LuaSnip",
-          wants = "friendly-snippets",
+          'L3MON4D3/LuaSnip',
+          wants = 'friendly-snippets',
           config = function()
-            require("luasnip.loaders.from_vscode").lazy_load()
+            require('luasnip.loaders.from_vscode').lazy_load()
           end,
         },
-        "rafamadriz/friendly-snippets",
+        'rafamadriz/friendly-snippets',
       }
     }
-
     -- Icons for Autocomplete
-    use { "onsails/lspkind-nvim",
+    use { 'onsails/lspkind-nvim',
       config = function()
-        require "lspkind".init({
+        require 'lspkind'.init({
           preset = 'codicons'
         })
     end
 
     }
-    use "L3MON4D3/LuaSnip"
+    use 'L3MON4D3/LuaSnip'
     use {
-      "ellisonleao/gruvbox.nvim",
+      'ellisonleao/gruvbox.nvim',
       config = function()
         vim.cmd [[
           set termguicolors
-          let background="dark" 
+          let background='dark' 
           colorscheme gruvbox
         ]]
       end
@@ -123,61 +135,80 @@ return require("packer").startup(
     -- }
 
     use {
-      "nvim-treesitter/nvim-treesitter",
+      'nvim-treesitter/nvim-treesitter',
       config = function()
-        require "local.plugins.treesitter"
+        require 'local.plugins.treesitter'
       end
     }
-    use "nvim-treesitter/nvim-treesitter-textobjects"
+    use 'nvim-treesitter/nvim-treesitter-textobjects'
 
     use {
-      "nvim-telescope/telescope.nvim",
+      'nvim-telescope/telescope.nvim',
       config = function()
-        require "local.plugins.telescope"
+        require 'local.plugins.telescope'
       end,
-      requires = { "nvim-lua/plenary.nvim" }
+      requires = { 'nvim-lua/plenary.nvim' }
     }
 
     use {
-      "nvim-telescope/telescope-fzy-native.nvim",
-      after = "telescope.nvim",
+      'nvim-telescope/telescope-fzy-native.nvim',
+      after = 'telescope.nvim',
       config = function()
-        require "telescope".load_extension "fzy_native"
+        require 'telescope'.load_extension 'fzy_native'
       end
     }
 
     use {
-      "nvim-telescope/telescope-frecency.nvim",
-      after = "telescope.nvim",
+      'nvim-telescope/telescope-frecency.nvim',
+      after = 'telescope.nvim',
       config = function()
-        require "telescope".load_extension "frecency"
+        require 'telescope'.load_extension 'frecency'
       end,
-      requires = { "tami5/sqlite.lua" }
     }
     use {
-        "kyazdani42/nvim-web-devicons",
+        'kyazdani42/nvim-web-devicons',
         config= function ()
-          require "nvim-web-devicons".setup()
+          require 'nvim-web-devicons'.setup()
         end
     }
     use {
-      "nvim-lualine/lualine.nvim",
-      requires = { "kyazdani42/nvim-web-devicons", opt = true },
+      'nvim-lualine/lualine.nvim',
+      requires = { 'kyazdani42/nvim-web-devicons', opt = true },
       config = function()
-        require "local.plugins.statusline"
+        require 'local.plugins.statusline'
       end
     }
     use {
-      "nvim-tree/nvim-tree.lua",
+      'jackMort/ChatGPT.nvim',
+      config = function()
+        require 'chatgpt'.setup()
+      end,
       requires = {
-        "nvim-tree/nvim-web-devicons"
+        'MunifTanjim/nui.nvim',
+        'nvim-lua/plenary.nvim',
+        'nvim-telescope/telescope.nvim'
+      }
+    }
+    use {
+      'nvim-tree/nvim-tree.lua',
+      requires = {
+        'nvim-tree/nvim-web-devicons'
       },
       config = function()
-        require "local.plugins.nvim-tree"
+        require 'local.plugins.nvim-tree'
       end
+    }
+
+    use {
+      'antosha417/nvim-lsp-file-operations',
+      requires = {
+        'nvim-lua/plenary.nvim',
+        'nvim-tree/nvim-tree.lua',
+      }
     }
     if packer_bootstrap then
       require('packer').sync()
     end
   end
+
 )

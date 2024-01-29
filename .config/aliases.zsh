@@ -20,26 +20,48 @@ alias c="clear"
 alias jp="prettier --stdin-filepath j.json"
 alias md="mkdir"
 alias dot="nvim ~/dotfiles/.config -c ':lcd ~/dotfiles/.config'"
+alias dotv="nvim ~/dotfiles/.config/nvim -c ':lcd ~/dotfiles/.config/nvim'"
 alias ls="ls -A"
 
 alias g="git"
-alias gs="g status"
+alias gs="git status"
 alias gc="git commit -m"
 alias gd="git diff"
+alias gco="git checkout"
+alias gcob="git checkout -b"
+alias gr="git reset"
+alias gp="git push"
+alias gb="git branch"
+alias g\-="git checkout -"
+# yarn specific
+alias y="yarn"
+alias ya="yarn add"
+alias yr="yarn remove"
 
-#
-# TODO: doesn't work
-# alias nzf="fzf | xargs nvim"
-# TODO: also doesn't work. But this one was close. Runs fzf when the file is sourced, might be a zsh expansion thing?
-# alias fv="nvim $(fzf)\n"
+# alias f="nvim $(fzf)"
+
+
+# jira specific
+# requires: https://github.com/ankitpokhrel/jira-cli
+# and JIRA_API_TOKEN in environment
+# TODO: check for jira cli
+
+alias j="jira-cli"
+alias ji="jira-cli issues"
+alias jio="jira-cli issues list --sOpen"
+alias jime="jira-cli issues list --tOpen $WORK_EMAIL"
+
 
 # tmux
+alias t="tmux"
 alias tx="tmuxinator start"
 alias tk="tmux kill-session -t"
 alias tn="tmux new -s"
 alias ta="tmux attach-session -t"
 alias v="vim"
 alias kreact="pkill -2 'react(\/scripts)?(\/| )start'"
+
+alias dockerip="docker inspect --format '{{ .NetworkSettings.IPAddress }}'"
 
 p () {
   directory=$(pwd)
